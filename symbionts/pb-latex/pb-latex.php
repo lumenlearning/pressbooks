@@ -3,7 +3,7 @@
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
- * 
+ *
  * Plugin Name: WP LaTeX for Pressbooks
  * Description:  Converts inline latex code into PNG images that are displayed in your PressBooks blog posts.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ or $$ e^{\i \pi} + 1 = 0 $$ syntax.
  * Version: 1.0.0

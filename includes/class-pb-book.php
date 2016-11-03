@@ -156,7 +156,7 @@ class Book {
 		}
 		$cache_id = "book-str-$blog_id";
 		$book_structure = wp_cache_get( $cache_id, 'pb' );
-		if ( $book_structure ) {
+		if ( !$get_pb_export_meta && $book_structure ) {
 			return $book_structure;
 		}
 

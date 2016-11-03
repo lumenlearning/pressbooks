@@ -1037,6 +1037,7 @@ class Epub201 extends Export {
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
+			'append_front_matter_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1059,7 +1060,7 @@ class Epub201 extends Export {
 			$slug = $front_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
-
+			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $id ), 'front-matter' );
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1091,6 +1092,7 @@ class Epub201 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
+				$var['append_front_matter_content'] = $append_front_matter_content,
 				'' );
 
 			$file_id = 'front-matter-' . sprintf( "%03s", $i );
@@ -1165,7 +1167,7 @@ class Epub201 extends Export {
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
-			'append_content' => '',
+			'append_chapter_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1204,7 +1206,7 @@ class Epub201 extends Export {
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
-				$append_content = $this->kneadHtml( apply_filters( 'pb_append_html_to_export_page', '', $id ), 'chapter' );
+				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $id ), 'chapter' );
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1244,7 +1246,7 @@ class Epub201 extends Export {
 					( $this->numbered ? $n : '' ),
 					Sanitize\decode( $title ),
 					$content,
-					$var['append_content'] = $append_content,
+					$var['append_chapter_content'] = $append_chapter_content,
 					'' );
 
 				$file_id = 'chapter-' . sprintf( "%03s", $j );
@@ -1387,6 +1389,7 @@ class Epub201 extends Export {
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
+			'append_back_matter_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1402,7 +1405,7 @@ class Epub201 extends Export {
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
-
+			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $id ), 'back-matter' );
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1434,6 +1437,7 @@ class Epub201 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
+				$var['append_back_matter_content'] = $append_back_matter_content,
 				'' );
 
 			$file_id = 'back-matter-' . sprintf( "%03s", $i );

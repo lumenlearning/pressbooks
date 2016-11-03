@@ -824,7 +824,7 @@ class Xhtml11 extends Export {
 
 	protected function echoContent( $book_contents, $metadata ) {
 
-		echo '<div class="all-parts-and-contents">';
+		echo '<div class="all-parts-and-contents" id="all-parts-and-contents">';
 
 		// Front-matter
 		$this->echoFrontMatter( $book_contents, $metadata );
