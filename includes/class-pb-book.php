@@ -185,6 +185,13 @@ class Book {
 
 		$q = new \WP_Query();
 
+		global $wpdb;
+		$exportSettings = array();
+		$sql = $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' );
+		foreach ( $wpdb->get_results( $sql, ARRAY_A ) as $val ) {
+			$exportSettings[$val['post_id']] = $val['meta_value'];
+		}
+
 		foreach ( $custom_types as $type ) {
 
 			$book_structure[ $type ] = array();
@@ -213,7 +220,7 @@ class Book {
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
-					'export' => ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false ),
+					'export' => ( isset( $exportSettings[$post->ID] ) && 'on' == strtolower($exportSettings[$post->ID]) ) ? true : false,
 					'post_parent' => $post->post_parent,
 				);
 			}
